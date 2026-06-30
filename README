@@ -1,0 +1,52 @@
+# Análisis de Perfiles de Usuario y Segmentación de Clientes - ConnectaTel
+
+## 🎯 Objetivo del Proyecto
+El objetivo principal de este proyecto es analizar el comportamiento de consumo y los perfiles demográficos de los clientes de la compañía de telecomunicaciones **ConnectaTel**. A través de un análisis exploratorio de datos (EDA), la detección de patrones de uso extremo (*outliers*) y la segmentación multidimensional, se busca generar insights estratégicos y propuestas de valor que permitan optimizar la oferta de planes actuales (Básico vs. Premium), justificar tarifas y diseñar campañas focalizadas de retención y migración (*up-selling*).
+
+---
+
+## 📊 Datasets Utilizados
+El análisis se realizó utilizando el conjunto de datos de perfiles de usuario (user_profile), el cual consolida información demográfica y métricas de consumo de los clientes:
+*   **Datos Demográficos:** Edad (age), Ciudad (city), Fecha de registro.
+*   **Métricas de Consumo:** Cantidad de mensajes (cant_mensajes), Cantidad de llamadas (cant_llamadas) y Duración total en minutos de las llamadas (cant_minutos_llamada).
+*   **Variables de Control:** Tipo de plan contratado (`plan`: Básico / Premium).
+*   **Datos originales de Database plans.csv, users.csv y usage.csv, proporcionados por la empresa ConnectaTel
+
+---
+
+## 🛠️ Etapas del Análisis Realizadas
+
+1.  **Limpieza y Preprocesamiento de Datos:**
+    *   Tratamiento de valores faltantes/sentinel (-999) en la variable de edad mediante imputación con la mediana.
+    *   Tratamiento de valores nulos en variables categóricas (city) asignando la etiqueta "NA".
+    *   Consistencia lógica en variables cruzadas (asegurar que los mensajes no tuvieran duración ni las llamadas longitud).
+    *   Estandarización y formateo de campos de fecha.
+2.  **Análisis Exploratorio de Datos (EDA):**
+    *   Análisis de distribuciones y estadísticas descriptivas utilizando .describe().
+    *   Visualización de dispersión y tendencias mediante histogramas (sns.histplot).
+3.  **Detección Estadístico de Outliers:**
+    *   Implementación del criterio de Tukey mediante el Rango Intercuartílico (IQR).
+    *   Visualización del consumo extremo mediante diagramas de caja (sns.boxplot).
+    *   Evaluación estratégica de negocio para mantener los valores atípicos de consumo (*heavy users*) con el fin de proteger el diseño de la infraestructura de red.
+4.  **Segmentación de Clientes:**
+    *   **Segmentación Demográfica:** Creación de la variable grupo_edad (Jóvenes < 30, Adultos 30-59, Adultos Mayores >= 60).
+    *   **Segmentación de Consumo:** Creación de la variable grupo_uso basada en reglas lógicas de llamadas y mensajes (Bajo uso, Uso medio, Alto uso).
+5.  **Visualización Avanzada:**
+    *   Generación de diagramas de barras de conteo (sns.countplot) con etiquetas de datos dinámicas (ax.bar_label) cruzadas por el tipo de plan.
+
+---
+
+## 🚀 Cómo Ejecutar el Notebook
+
+Puedes ejecutar este análisis de forma local o directamente en la nube. La opción recomendada para mantener el entorno configurado de forma automática es **Google Colab**.
+
+### Opción 1: Abrir en Google Colab (Recomendado)
+1. Ve a [Google Colab](https://colab.research.google.com/).
+2. Selecciona la pestaña **File** (Archivo) > **Upload notebook** (Subir cuaderno).
+3. Sube el archivo `.ipynb` de este proyecto.
+4. Sube el archivo del dataset correspondiente en el panel lateral izquierdo de archivos 📁.
+
+### Opción 2: Ejecución Local (Jupyter Notebook / Lab)
+Asegúrate de tener instalada la distribución de Anaconda o Python 3.x con las siguientes librerías base:
+```bash
+pip install pandas numpy matplotlib seaborn
